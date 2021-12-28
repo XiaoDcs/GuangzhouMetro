@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <!-- MDUI CSS -->
+    <link rel="stylesheet" href="css/mdui.css"/>
+    <title>广州地铁线路查询</title>
+    
+    <!-- <script>mdui.mutation()</script> -->
+
+    <style type="text/css">
+    body{
+        margin: 0;
+        font-family: Microsoft Yahei;
+        text-align: center;
+    }
+    .op{
+        margin-top: 20px;
+    }
+    .desc{
+        width: 500px;
+        max-width: 90%;
+        margin: 50px auto;
+        line-height: 1.6em;
+        text-align: left;
+        color: #f00;
+    }
+    </style>
+</head>
+<body>
+    <div class="start">
+        <label>起点：</label>
+        <select class="mdui-select line" mdui-select></select>
+        <select id="Start_2" class="mdui-select terminal"></select>
+    </div>
+    <div class="end">
+        <label>终点：</label>
+        <select class="mdui-select line" mdui-select></select>
+        <select id="End_2" class="mdui-select terminal"></select>
+    </div>
+    <div class="op ">
+        <button class="search mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-ripple">搜索最短路径</button>
+    </div>
+
+    <p class="desc"></p>
+    <p class="result"></p>
+    <!-- MDUI JavaScript -->
+    <script src="js/mdui.js"></script>
+    <script type="text/javascript" src="jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="underscore-1.8.3.min.js"></script>
+    <script type="text/javascript" src="gzmtr.js"></script>
+    <script type="text/javascript" src="main.js"></script>  
+
+    
+</body>
+</html>
