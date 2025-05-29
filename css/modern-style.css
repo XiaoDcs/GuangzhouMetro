@@ -1,0 +1,406 @@
+/* 重置默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 基础样式 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 主容器 - 使用Flexbox */
+.app-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 左侧控制面板 */
+.control-panel {
+    width: 320px;
+    background: white;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* 面板头部 */
+.panel-header {
+    padding: 30px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+}
+
+.panel-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.header-line {
+    width: 60px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* 搜索表单 */
+.search-form {
+    flex: 1;
+    padding: 25px;
+}
+
+/* 站点组 */
+.station-group {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.station-group:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.station-group h3 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* 站点提示 */
+.station-tip {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tip-end {
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.station-tip:hover {
+    border-color: currentColor;
+    transform: translateX(5px);
+}
+
+.station-tip.active {
+    border-color: currentColor;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tip-icon {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+/* 选择组 */
+.select-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.select-group label {
+    width: 60px;
+    font-weight: 500;
+    color: #666;
+}
+
+.select-group select {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.select-group select:hover {
+    border-color: #4ecdc4;
+}
+
+.select-group select:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+}
+
+/* 搜索按钮 */
+.search-btn {
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 20px;
+}
+
+/* 面板底部 */
+.panel-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid #eee;
+}
+
+/* 右侧地图区域 */
+.map-container {
+    flex: 1;
+    position: relative;
+    background: #e9ecef;
+}
+
+/* SVG包装器 */
+.svg-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.svg-wrapper embed {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 缩略图容器 */
+.thumbnail-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    height: 200px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 100; /* 确保在地图之上 */
+}
+
+.thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.thumbnail-wrapper embed {
+    width: 100%;
+    height: 100%;
+}
+
+.scope-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    color: #333;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 25px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.result-summary {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.result-icon {
+    font-size: 32px;
+}
+
+.result-divider {
+    height: 1px;
+    background: #eee;
+    margin: 20px 0;
+}
+
+.result-details h4 {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.result-path {
+    line-height: 2;
+    color: #555;
+}
+
+.modal-footer {
+    padding: 20px 25px;
+    background: #f8f9fa;
+    text-align: right;
+}
+
+.modal-btn {
+    padding: 10px 30px;
+    background: #4ecdc4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-btn:hover {
+    background: #44a08d;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .control-panel {
+        width: 100%;
+        height: auto;
+        max-height: 50vh;
+    }
+    
+    .map-container {
+        height: 50vh;
+    }
+    
+    .thumbnail-container {
+        display: none;
+    }
+}
+
+/* 加载动画 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4ecdc4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} 

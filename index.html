@@ -1,61 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
-    <meta name="renderer" content="webkit"/>
-    <meta name="force-rendering" content="webkit"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-
-    <!-- MDUI CSS -->
-    <link rel="stylesheet" href="css/mdui.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>广州地铁线路查询</title>
-    
-    <!-- <script>mdui.mutation()</script> -->
-
-    <style type="text/css">
-    body{
-        margin: 0;
-        font-family: Microsoft Yahei;
-        text-align: center;
-    }
-    .op{
-        margin-top: 20px;
-    }
-    .desc{
-        width: 500px;
-        max-width: 90%;
-        margin: 50px auto;
-        line-height: 1.6em;
-        text-align: left;
-        color: #f00;
-    }
-    </style>
+    <link rel="stylesheet" href="css/modern-style.css">
 </head>
 <body>
-    <div class="start">
-        <label>起点：</label>
-        <select class="mdui-select line" mdui-select></select>
-        <select id="Start_2" class="mdui-select terminal"></select>
+    <!-- 主容器 -->
+    <div class="app-container">
+        <!-- 左侧控制面板 -->
+        <aside class="control-panel">
+            <header class="panel-header">
+                <h1>广州地铁线路查询</h1>
+                <div class="header-line"></div>
+            </header>
+            
+            <div class="search-form">
+                <!-- 起点选择 -->
+                <div class="station-group">
+                    <div class="station-tip tip-start active">
+                        <span class="tip-icon">📍</span>
+                        <span>点击地图选择起点站</span>
+                    </div>
+                    <h3>起点站</h3>
+                    <div class="select-group">
+                        <label>线路：</label>
+                        <select class="line-select start-line"></select>
+                    </div>
+                    <div class="select-group">
+                        <label>站点：</label>
+                        <select class="station-select start-station" id="start-station"></select>
+                    </div>
+                </div>
+                
+                <!-- 终点选择 -->
+                <div class="station-group">
+                    <div class="station-tip tip-end">
+                        <span class="tip-icon">🎯</span>
+                        <span>点击地图选择终点站</span>
+                    </div>
+                    <h3>终点站</h3>
+                    <div class="select-group">
+                        <label>线路：</label>
+                        <select class="line-select end-line"></select>
+                    </div>
+                    <div class="select-group">
+                        <label>站点：</label>
+                        <select class="station-select end-station" id="end-station"></select>
+                    </div>
+                </div>
+                
+                <!-- 搜索按钮 -->
+                <button class="search-btn">
+                    <span class="btn-icon">🚇</span>
+                    <span>搜索最短路径</span>
+                </button>
+            </div>
+            
+            <footer class="panel-footer">
+                <p>© 2025 广州地铁查询系统</p>
+            </footer>
+        </aside>
+        
+        <!-- 右侧地图区域 -->
+        <main class="map-container">
+            <!-- SVG地图 -->
+            <div class="svg-wrapper">
+                <embed id="metro-map" type="image/svg+xml" src="metro.svg" />
+            </div>
+            
+            <!-- 缩略图 -->
+            <div class="thumbnail-container">
+                <div class="thumbnail-wrapper">
+                    <svg id="scopeContainer" class="scope-overlay">
+                        <g>
+                            <rect id="scope" fill="red" fill-opacity="0.1" stroke="red" stroke-width="2px" x="0" y="0" width="0" height="0" />
+                            <line id="line1" stroke="red" stroke-width="2px" x1="0" y1="0" x2="0" y2="0" />
+                            <line id="line2" stroke="red" stroke-width="2px" x1="0" y1="0" x2="0" y2="0" />
+                        </g>
+                    </svg>
+                    <embed id="thumbnail-map" type="image/svg+xml" src="metro.svg" />
+                </div>
+            </div>
+        </main>
     </div>
-    <div class="end">
-        <label>终点：</label>
-        <select class="mdui-select line" mdui-select></select>
-        <select id="End_2" class="mdui-select terminal"></select>
-    </div>
-    <div class="op ">
-        <button class="search mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-ripple">搜索最短路径</button>
-    </div>
-
-    <p class="desc"></p>
-    <p class="result"></p>
-    <!-- MDUI JavaScript -->
-    <script src="js/mdui.js"></script>
-    <script type="text/javascript" src="jquery-2.2.2.min.js"></script>
-    <script type="text/javascript" src="underscore-1.8.3.min.js"></script>
-    <script type="text/javascript" src="gzmtr.js"></script>
-    <script type="text/javascript" src="main.js"></script>  
-
     
+    <!-- 结果弹窗 -->
+    <div class="modal" id="result-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🚇 查询结果</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="result-summary">
+                    <span class="result-icon">⏱️</span>
+                    <span class="result-desc"></span>
+                </div>
+                <div class="result-divider"></div>
+                <div class="result-details">
+                    <h4>详细路线：</h4>
+                    <div class="result-path"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn">确定</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 加载基础脚本 -->
+    <script src="js/jquery-2.2.2.min.js"></script>
+    <script src="js/underscore-1.8.3.min.js"></script>
+    <script src="js/svg-pan-zoom.js"></script>
+    <script src="js/thumbnailViewer.js"></script>
+    <script src="js/gzmtr.js"></script>
+    <script src="js/modern-app.js"></script>
 </body>
-</html>
+</html> 
