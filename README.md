@@ -2,6 +2,8 @@
 
 一个基于纯原生Web技术开发的广州地铁线路查询系统，提供直观的地图交互体验和最短路径查询功能。
 
+主要是探索SVG事件使用，探索如何在一个SVG里面使用JavaScript
+
 最初用于提交数据结构课程作业，心血来潮重构后开源，可以通过[Github Page](https://xiaodcs.github.io/GuangzhouMetro/)访问。
 
 ![系统主界面](screenshots/main.png)
